@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "../../constant/urlConstant";
 import MarketComponent from "../../components/market";
+import AboutUsScreen from "../aboutScreen";
 
 const HomeScreen = () => {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
@@ -38,6 +39,10 @@ const HomeScreen = () => {
         </div>
         <div className=" p-4 mb-2">
           <MarketComponent />
+    
+        </div>
+        <div  className=" p-4 mb-2">
+        <AboutUsScreen/>
         </div>
       </div>
     </>

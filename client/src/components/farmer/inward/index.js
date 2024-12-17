@@ -46,7 +46,6 @@ const AddInwardComponent = (props) => {
     reValidateMode: "onChange",
   });
   const history = useNavigate();
-  
 
   const { t } = useTranslation();
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -87,7 +86,9 @@ const AddInwardComponent = (props) => {
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
-        const response = await axios.get(`${baseUrl}${API_PATH.MARKET.FETCH_LIST}`);
+        const response = await axios.get(
+          `${baseUrl}${API_PATH.MARKET.FETCH_LIST}`
+        );
         setMarkets(response?.data?.markets);
       } catch (error) {
         console.error(error);
@@ -104,7 +105,7 @@ const AddInwardComponent = (props) => {
         const dateValue = currentValues.date;
         reset({
           market: marketValue,
-          date: dateValue
+          date: dateValue,
         });
         initInward();
       }, 2000);
@@ -148,7 +149,17 @@ const AddInwardComponent = (props) => {
 
   const onSubmit = (data) => {
     const payload = {
-      date: data?.date ? moment(data.date).format("DD/MM/YYYY") : null,
+      // date: data?.date
+      //   ? moment(data.date, "YYYY/MM/DD")
+      //       .set({
+      //         hour: moment().hour(),
+      //         minute: moment().minute(),
+      //         second: moment().second(),
+      //         millisecond: moment().millisecond(),
+      //       })
+      //       .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+      //   : null,
+      date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
       market: data?.market,
       commodity: data?.commodity,
       purchase_quantity: data?.purchaseQuantity,

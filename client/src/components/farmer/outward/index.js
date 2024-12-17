@@ -85,7 +85,9 @@ const AddOutwardComponent = (props) => {
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
-        const response = await axios.get(`${baseUrl}${API_PATH.MARKET.FETCH_LIST}`);
+        const response = await axios.get(
+          `${baseUrl}${API_PATH.MARKET.FETCH_LIST}`
+        );
         setMarkets(response?.data?.markets);
       } catch (error) {
         console.error(error);
@@ -94,7 +96,7 @@ const AddOutwardComponent = (props) => {
 
     fetchMarketData();
   }, []);
-  
+
   useEffect(() => {
     if (isCreateOutwardSuccess || isEditOutwardSuccess) {
       setTimeout(() => {
@@ -150,7 +152,17 @@ const AddOutwardComponent = (props) => {
   const onSubmit = (data) => {
     console.log(data);
     const payload = {
-      date: data?.date ? moment(data.date).format("DD/MM/YYYY") : null,
+      // date: data?.date
+      //   ? moment(data.date, "YYYY/MM/DD")
+      //       .set({
+      //         hour: moment().hour(),
+      //         minute: moment().minute(),
+      //         second: moment().second(),
+      //         millisecond: moment().millisecond(),
+      //       })
+      //       .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+      //   : null,
+      date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
       market: data?.market,
       commodity: data?.commodity,
       sales_rate: data?.saleRate,

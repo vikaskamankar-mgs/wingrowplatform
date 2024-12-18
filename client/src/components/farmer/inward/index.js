@@ -39,7 +39,7 @@ const AddInwardComponent = (props) => {
     getValues,
   } = useForm({
     defaultValues: useMemo(() => {
-      // console.log("check value come or not", formFieldValueMap);
+
       return formFieldValueMap;
     }, [formFieldValueMap]),
     mode: "onChange",
@@ -159,7 +159,10 @@ const AddInwardComponent = (props) => {
       date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
       name: data?.market,
       commodities: data?.commodity,
-      userId
+      purchase_quantity: data?.purchaseQuantity,
+      purchase_rate: data?.purchaseRate,
+      userId,
+
     };
     createInwardRecord(payload);
   };

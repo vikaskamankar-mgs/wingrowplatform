@@ -29,7 +29,7 @@ const AddOutwardComponent = (props) => {
     initOutward,
   } = props.addOutwardProps;
 
-  console.log(isOutwardDetailSuccess);
+ 
   const {
     control,
     formState: { errors, isDirty },
@@ -40,7 +40,7 @@ const AddOutwardComponent = (props) => {
     reset,
   } = useForm({
     defaultValues: useMemo(() => {
-      // console.log("check value come or not", formFieldValueMap);
+     
       return formFieldValueMap;
     }, [formFieldValueMap]),
     mode: "onChange",
@@ -151,7 +151,7 @@ const AddOutwardComponent = (props) => {
   };
 
   const onSubmit = (data) => {
-    console.log("outward onsubmit is call");
+    
     const token = localStorage.getItem("token");
 
     let userId = null;
@@ -159,13 +159,13 @@ const AddOutwardComponent = (props) => {
       const decodedToken = jwt_decode(token);
       userId = decodedToken?.id;
     }
-    console.log(id,"dnojidididi");
-    console.log("outward data", data);
-    console.log(data);
+   
+    
+  
     const payload = {
       date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
       name: data?.market,
-      commodity: data?.commodity,
+      commodities: data?.commodity,
       sales_rate: data?.saleRate,
       remaining_sale: data?.remainingSale,
       userId

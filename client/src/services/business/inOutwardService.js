@@ -144,7 +144,7 @@ export const fetchInwardRecord = async (payload) => {
 };
 
 export const createInwardRecord = async (payload) => {
-  console.log("payload createinvard",payload);
+ 
   const url = `${baseUrl}${API_PATH.INWARD.ADD}`;
   const token = localStorage.getItem("token");
   try {

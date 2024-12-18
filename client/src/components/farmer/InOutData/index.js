@@ -152,7 +152,7 @@ const InOutData = (props) => {
       date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
     };
   
-    console.log("params", params);
+  
   
     try {
       const response = await axios.get(`${baseUrl}/inwardoutward`, {
@@ -161,8 +161,6 @@ const InOutData = (props) => {
         },
         params, 
       });
-  
-      console.log("response", response.data);
       setinoutData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

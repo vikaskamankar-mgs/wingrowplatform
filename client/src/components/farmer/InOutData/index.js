@@ -98,45 +98,77 @@ const InOutData = (props) => {
     setMarketDay(getMarketDay);
   }, [watch(FORM_FIELDS_NAME.MARKET.name)]);
 
-  const onSubmit =async (data) => {
+  // const onSubmit =async (data) => {
+  //   const token = localStorage.getItem("token");
+  //   const userId = token ? jwt_decode(token)?.id : null;
+    
+  //   const params = {
+  //     userId:userId,
+  //     name: data.market,
+  //     date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
+  //   };
+  //   console.log("params",params);
+  //   try {
+  //     // const response = await axios.get(`${baseUrl}/inwardoutward?userId:${userId}&`
+  //     const queryString = `userId=${userId}&name=${data.market}&date=${params.date}`;
+  //     console.log("queryString",queryString);
+  //     const response =  await axios.get(`${baseUrl}/inwardoutward?${queryString}`, {  headers: {
+  //       Authorization: `Bearer ${token}`, 
+  //     },params });
+  //     console.log("response",response);
+  //     setinoutData(response);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+     
+  //   }
+  //   // handleFetchInwardRecord();
+  //   // const selectedMarket = data.market;
+  //   // const getMarketDay = marketData.find(
+  //   //   (item) => item.location === selectedMarket
+  //   // )?.marketDay;
+
+  //   // // Set the marketDay state directly
+  //   // const disabled = getDisabledDays(getMarketDay);
+  //   // setMarketDay(disabled);
+
+  //   // const dateValue = moment(data.date).format("DD/MM/YYYY");
+
+  //   // // Store the selected market and date values to filter data later
+  //   // setFilteredOutwardList({ selectedMarket, dateValue });
+  //   // setFilteredInwardList({ selectedMarket, dateValue });
+  // };
+  const onSubmit = async (data) => {
     const token = localStorage.getItem("token");
     const userId = token ? jwt_decode(token)?.id : null;
-    
+  
+    if (!userId || !data.market || !data.date) {
+      console.error("Missing required fields: userId, market, or date");
+      return;
+    }
+  
     const params = {
-      userId:userId,
+      userId: userId,
       name: data.market,
       date: data?.date ? moment(data.date).format("YYYY/MM/DD") : null,
     };
-    console.log("params",params);
+  
+    console.log("params", params);
+  
     try {
-      // const response = await axios.get(`${baseUrl}/inwardoutward?userId:${userId}&`
-      const queryString = `userId=${userId}&name=${data.market}&date=${params.date}`;
-      console.log("queryString",queryString);
-      const response =  await axios.get(`${baseUrl}/inwardoutward?${queryString}`, {  headers: {
-        Authorization: `Bearer ${token}`, 
-      },params });
-      console.log("response",response);
-      setinoutData(response);
+      const response = await axios.get(`${baseUrl}/inwardoutward`, {
+        headers: {
+          "x-access-token": token, 
+        },
+        params, 
+      });
+  
+      console.log("response", response.data);
+      setinoutData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-     
     }
-    // handleFetchInwardRecord();
-    // const selectedMarket = data.market;
-    // const getMarketDay = marketData.find(
-    //   (item) => item.location === selectedMarket
-    // )?.marketDay;
-
-    // // Set the marketDay state directly
-    // const disabled = getDisabledDays(getMarketDay);
-    // setMarketDay(disabled);
-
-    // const dateValue = moment(data.date).format("DD/MM/YYYY");
-
-    // // Store the selected market and date values to filter data later
-    // setFilteredOutwardList({ selectedMarket, dateValue });
-    // setFilteredInwardList({ selectedMarket, dateValue });
   };
+  
 
   // Effect that runs when filteredOutwardList or filteredInwardList are set
   useEffect(() => {
